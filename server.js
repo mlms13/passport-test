@@ -1,6 +1,7 @@
 var express  = require('express'),
     app      = express(),
     port     = process.env.PORT || 3210,
+    path     = require('path'),
     mongoose = require('mongoose'),
     passport = require('passport'),
 
@@ -36,7 +37,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
-    res.render()
+    res.render('login', {message: req.flash('loginMessage')})
 });
 
 app.use('/', router);
