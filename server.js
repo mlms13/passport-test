@@ -36,9 +36,18 @@ router.get('/', function (req, res) {
     res.send('This is the home page.');
 });
 
-router.get('/login', function (req, res) {
-    res.render('login', {message: req.flash('loginMessage')})
+router.get('/signup', function (req, res) {
+    res.render('signup', {message: req.flash('signupMessage')});
 });
+
+router.get('/login', function (req, res) {
+    res.render('login', {message: req.flash('loginMessage')});
+});
+
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+})
 
 app.use('/', router);
 app.use('/admin', require('./routes/admin.js'));
