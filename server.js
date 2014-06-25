@@ -18,6 +18,7 @@ var express  = require('express'),
 
 // set up mongoose and passport
 mongoose.connect(config.mongoUrl);
+require('./config/passport')(passport);
 
 app.use(logger('dev'));
 app.use(cookie());
@@ -39,6 +40,12 @@ router.get('/', function (req, res) {
 router.get('/signup', function (req, res) {
     res.render('signup', {message: req.flash('signupMessage')});
 });
+
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect: '/signup',
+    failureFlash: true
+}));
 
 router.get('/login', function (req, res) {
     res.render('login', {message: req.flash('loginMessage')});
